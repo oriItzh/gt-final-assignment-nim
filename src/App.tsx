@@ -11,7 +11,7 @@ function App() {
           Game Theory Lab
         </Typography>
         <Typography color="text.secondary">
-          Interactive Generalized Nim — Player vs. AI
+          Interactive Generalized Nim — Player vs. Computer
         </Typography>
       </AppShell>
     </ThemeProvider>
