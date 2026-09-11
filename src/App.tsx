@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider, Typography } from '@mui/material'
-import { GameSmokePanel } from './components/common/GameSmokePanel'
 import { AppShell } from './components/layout/AppShell'
+import { GameContainer } from './components/layout/GameContainer'
 import { GameProvider } from './state/GameContext'
 import { theme } from './theme/theme'
 
@@ -16,7 +16,7 @@ function App() {
           <Typography color="text.secondary">
             Interactive Generalized Nim — Player vs. Computer
           </Typography>
-          <GameSmokePanel />
+          <GameContainer />
         </AppShell>
       </GameProvider>
     </ThemeProvider>
