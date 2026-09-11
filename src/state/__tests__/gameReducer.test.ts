@@ -10,7 +10,7 @@ describe('gameReducer', () => {
       type: 'START_GAME',
       piles: classic,
       mode: 'normal',
-      difficulty: 'grandmaster',
+      difficulty: 'grandmaizer',
     })
     expect(state.status).toBe('playing')
     expect(state.piles).toEqual(classic)
@@ -22,7 +22,7 @@ describe('gameReducer', () => {
       type: 'START_GAME',
       piles: classic,
       mode: 'normal',
-      difficulty: 'grandmaster',
+      difficulty: 'grandmaizer',
     })
     state = gameReducer(state, { type: 'USER_MOVE', pileId: 'pile-1', amount: 1 })
     expect(state.piles[0].size).toBe(2)
@@ -36,7 +36,7 @@ describe('gameReducer', () => {
       type: 'START_GAME',
       piles: classic,
       mode: 'normal',
-      difficulty: 'grandmaster',
+      difficulty: 'grandmaizer',
     })
     const before = state
     state = gameReducer(state, { type: 'USER_MOVE', pileId: 'pile-1', amount: 99 })
@@ -48,7 +48,7 @@ describe('gameReducer', () => {
       type: 'START_GAME',
       piles: classic,
       mode: 'normal',
-      difficulty: 'grandmaster',
+      difficulty: 'grandmaizer',
     })
     state = gameReducer(state, { type: 'USER_MOVE', pileId: 'pile-1', amount: 1 })
     state = gameReducer(state, {
@@ -70,7 +70,7 @@ describe('gameReducer', () => {
       type: 'START_GAME',
       piles: classic,
       mode: 'normal',
-      difficulty: 'grandmaster',
+      difficulty: 'grandmaizer',
     })
     state = gameReducer(state, { type: 'USER_MOVE', pileId: 'pile-1', amount: 1 })
     state = gameReducer(state, { type: 'RESET_GAME' })

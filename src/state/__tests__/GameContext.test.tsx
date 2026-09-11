@@ -11,7 +11,7 @@ function TestHarness() {
       <span data-testid="player">{state.currentPlayer}</span>
       <span data-testid="thinking">{String(state.isComputerThinking)}</span>
       <span data-testid="history">{state.history.length}</span>
-      <button type="button" onClick={() => startGame(pilesFromSizes([3, 5, 7]), 'normal', 'grandmaster')}>
+      <button type="button" onClick={() => startGame(pilesFromSizes([3, 5, 7]), 'normal', 'grandmaizer')}>
         start
       </button>
       <button

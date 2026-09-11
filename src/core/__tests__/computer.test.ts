@@ -11,15 +11,15 @@ import { pilesFromSizes } from '../random'
 describe('computer', () => {
   const classic = pilesFromSizes([3, 5, 7])
 
-  it('grandmaster always plays optimal when available', () => {
-    const move = chooseComputerMove(classic, 'normal', 'grandmaster')
+  it('grandmaizer always plays optimal when available', () => {
+    const move = chooseComputerMove(classic, 'normal', 'grandmaizer')
     expect(isComputerMoveOptimal(classic, 'normal', move)).toBe(true)
     expect(move.player).toBe('computer')
   })
 
-  it('grandmaster falls back to conservative move in P-position', () => {
+  it('grandmaizer falls back to conservative move in P-position', () => {
     const pPosition = pilesFromSizes([1, 2, 3])
-    const move = chooseComputerMove(pPosition, 'normal', 'grandmaster')
+    const move = chooseComputerMove(pPosition, 'normal', 'grandmaizer')
     expect(move.amountRemoved).toBe(1)
     expect(move.player).toBe('computer')
   })
@@ -38,10 +38,10 @@ describe('computer', () => {
     expect(optimalCount).toBeLessThan(750)
   })
 
-  it('novice plays random legal moves', () => {
+  it('dardaleh plays random legal moves', () => {
     const moves = new Set<string>()
     for (let i = 0; i < 200; i++) {
-      const move = chooseComputerMove(classic, 'normal', 'novice', () => Math.random())
+      const move = chooseComputerMove(classic, 'normal', 'dardaleh', () => Math.random())
       moves.add(`${move.pileId}:${move.amountRemoved}`)
     }
     expect(moves.size).toBeGreaterThan(1)

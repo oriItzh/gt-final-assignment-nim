@@ -1,5 +1,5 @@
 export type GameMode = 'normal' | 'misere'
-export type Difficulty = 'grandmaster' | 'adaptive' | 'novice'
+export type Difficulty = 'grandmaizer' | 'adaptive' | 'dardaleh'
 export type Player = 'user' | 'computer'
 export type GameStatus = 'setup' | 'playing' | 'user-won' | 'computer-won'
 

@@ -72,9 +72,9 @@ export function ControlsBar() {
                   value={state.difficulty}
                   onChange={handleDifficultyChange}
                 >
-                  <MenuItem value="grandmaster">Grandmaster</MenuItem>
+                  <MenuItem value="grandmaizer">Grandmaizer</MenuItem>
                   <MenuItem value="adaptive">Adaptive</MenuItem>
-                  <MenuItem value="novice">Novice</MenuItem>
+                  <MenuItem value="dardaleh">Dardaleh</MenuItem>
                 </Select>
               </FormControl>
 

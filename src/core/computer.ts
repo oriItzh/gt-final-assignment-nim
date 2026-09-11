@@ -40,7 +40,7 @@ export function chooseComputerMove(
 ): Move {
   const optimal = optimalMove(piles, mode, 'computer')
 
-  if (difficulty === 'grandmaster') {
+  if (difficulty === 'grandmaizer') {
     if (optimal) return optimal
     return conservativeLegalMove(piles, 'computer')
   }
