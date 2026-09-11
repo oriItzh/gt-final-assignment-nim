@@ -3,8 +3,19 @@ import { Box, keyframes, useTheme } from '@mui/material'
 import { getStickColors } from '../../theme/theme'
 
 const STICKS_PER_COLUMN = 12
-const STICK_WIDTH = 36
-const STICK_HEIGHT = 4
+
+function getStickDimensions(stickCount: number) {
+  if (stickCount <= 5) {
+    return { width: 56, height: 10, gap: 4, columnGap: 1 }
+  }
+  if (stickCount <= 12) {
+    return { width: 48, height: 7, gap: 3, columnGap: 0.75 }
+  }
+  if (stickCount <= 30) {
+    return { width: 40, height: 5, gap: 2, columnGap: 0.75 }
+  }
+  return { width: 32, height: 4, gap: 2, columnGap: 0.75 }
+}
 
 const stickRemove = keyframes`
   0% { opacity: 1; transform: translateY(0) scaleY(1); }
@@ -46,6 +57,8 @@ export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksP
   const totalVisible = count + exitingCount
   const markedForRemoval = selectedRemove > 0 ? Math.min(selectedRemove, count) : 0
   const columns = groupIntoColumns(totalVisible)
+  const { width: stickWidth, height: stickHeight, gap: stickGap, columnGap } =
+    getStickDimensions(count)
 
   const isStickMarked = (index: number) =>
     index < count && index >= count - markedForRemoval
@@ -60,7 +73,7 @@ export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksP
         alignItems: 'flex-end',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        gap: 0.75,
+        gap: columnGap,
         width: '100%',
         minHeight: 48,
         px: 1.5,
@@ -86,7 +99,7 @@ export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksP
               display: 'flex',
               flexDirection: 'column-reverse',
               alignItems: 'center',
-              gap: '2px',
+              gap: `${stickGap}px`,
             }}
           >
             {stickIndices.map((stickIndex) => {
@@ -98,15 +111,15 @@ export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksP
                 <Box
                   key={`${pileIndex}-stick-${stickIndex}-${isExiting ? 'exit' : 'stay'}`}
                   sx={{
-                    width: STICK_WIDTH,
-                    height: STICK_HEIGHT,
-                    borderRadius: 2,
+                    width: stickWidth,
+                    height: stickHeight,
+                    borderRadius: Math.max(2, stickHeight / 2),
                     flexShrink: 0,
                     background: stickStyle.background,
                     boxShadow: stickStyle.boxShadow,
                     transformOrigin: 'center bottom',
                     animation: isExiting ? `${stickRemove} 0.45s ease-in forwards` : 'none',
-                    transition: 'background 0.2s ease, box-shadow 0.2s ease',
+                    transition: 'background 0.2s ease, box-shadow 0.2s ease, width 0.2s ease, height 0.2s ease',
                   }}
                 />
               )
