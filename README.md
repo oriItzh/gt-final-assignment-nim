@@ -1,19 +1,24 @@
-# React + TypeScript + Vite
+# Generalized Nim
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An interactive Generalized Nim game for a university game theory course. Play against a computer opponent while exploring XOR-based winning strategy through a live binary analysis panel.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Play Generalized Nim in **Normal** mode (last move wins) or **Misère** mode (last move loses)
+- Configure 2–7 piles with custom sizes (1–100) or randomize all piles before starting
+- Three computer difficulty levels: **Grandmaizer** (optimal), **Adaptive** (mostly optimal), and **Dardaleh** (random)
+- Live **Binary Matrix** showing each pile in binary with XOR parity highlighting
+- **XOR Helper** with N/P position evaluation, recommended moves, and step-by-step explanations
+- Visual stick piles with removal animations and move notifications
+- Light and dark mode
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React, TypeScript, Material UI, Vite
 
-## Expanding the Oxlint configuration
+## Setup
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+Requires Node.js 18+.
 
 ```bash
 git clone https://github.com/oriItzh/gt-final-assignment-nim.git
@@ -21,4 +26,25 @@ cd gt-final-assignment-nim
 npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Running
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
+
+Build for production:
+
+```bash
+npm run build
+npm run preview
+```
+
+Run tests:
+
+```bash
+npm run test
+```
