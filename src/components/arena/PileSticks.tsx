@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Box, keyframes } from '@mui/material'
 
 const stickRemove = keyframes`
-  0% { opacity: 1; transform: translateY(0) scaleY(1); }
-  100% { opacity: 0; transform: translateY(-24px) scaleY(0.3); }
+  0% { opacity: 1; transform: translateX(0) scaleX(1); }
+  100% { opacity: 0; transform: translateX(28px) scaleX(0.3); }
 `
 
 interface PileSticksProps {
@@ -28,20 +28,20 @@ export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksP
   }, [count])
 
   const totalVisible = count + exitingCount
-  const markedForRemoval = selectedRemove > 0
-    ? Math.min(selectedRemove, count)
-    : 0
+  const markedForRemoval = selectedRemove > 0 ? Math.min(selectedRemove, count) : 0
 
   return (
     <Box
       sx={{
         display: 'flex',
-        flexDirection: 'column-reverse',
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
+        flexWrap: 'wrap',
         gap: 0.5,
-        minHeight: 200,
-        px: 2,
+        width: '100%',
+        minHeight: 48,
+        px: 1.5,
         py: 1.5,
         borderRadius: 3,
         bgcolor: 'rgba(79, 55, 139, 0.04)',
@@ -57,16 +57,17 @@ export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksP
           <Box
             key={`${pileIndex}-stick-${i}-${isExiting ? 'exit' : 'stay'}`}
             sx={{
-              width: 14,
-              height: 36,
-              borderRadius: '6px 6px 3px 3px',
+              width: 32,
+              height: 12,
+              borderRadius: 6,
+              flexShrink: 0,
               background: isMarked
-                ? 'linear-gradient(180deg, #FFB74D 0%, #F57C00 100%)'
-                : 'linear-gradient(180deg, #B39DDB 0%, #4F378B 100%)',
+                ? 'linear-gradient(90deg, #FFB74D 0%, #F57C00 100%)'
+                : 'linear-gradient(90deg, #B39DDB 0%, #4F378B 100%)',
               boxShadow: isMarked
                 ? '0 2px 8px rgba(245, 124, 0, 0.4)'
                 : '0 2px 6px rgba(79, 55, 139, 0.25)',
-              transformOrigin: 'bottom center',
+              transformOrigin: 'center right',
               animation: isExiting ? `${stickRemove} 0.45s ease-in forwards` : 'none',
               transition: 'background 0.2s ease, box-shadow 0.2s ease',
             }}
@@ -74,7 +75,7 @@ export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksP
         )
       })}
       {totalVisible === 0 && (
-        <Box sx={{ color: 'text.disabled', fontSize: 12, py: 4 }}>Empty</Box>
+        <Box sx={{ color: 'text.disabled', fontSize: 12 }}>Empty</Box>
       )}
     </Box>
   )

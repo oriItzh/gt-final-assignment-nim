@@ -20,8 +20,7 @@ import type { GameAction } from './gameReducer'
 import { createInitialState, gameReducer } from './gameReducer'
 import type { GameStateWithSnapshot } from './initialState'
 
-const THINKING_DELAY_MIN_MS = 400
-const THINKING_DELAY_MAX_MS = 800
+const COMPUTER_THINKING_DELAY_MS = 3000
 
 export interface GameDerivedState {
   xorSum: number
@@ -46,13 +45,6 @@ interface GameContextValue {
 }
 
 const GameContext = createContext<GameContextValue | null>(null)
-
-function randomThinkingDelay(): number {
-  return (
-    THINKING_DELAY_MIN_MS +
-    Math.floor(Math.random() * (THINKING_DELAY_MAX_MS - THINKING_DELAY_MIN_MS + 1))
-  )
-}
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(gameReducer, undefined, createInitialState)
@@ -96,11 +88,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
       return
     }
 
-    const delay = randomThinkingDelay()
     timeoutRef.current = setTimeout(() => {
       const move = chooseComputerMove(state.piles, state.mode, state.difficulty)
       dispatch({ type: 'COMPUTER_MOVE_RESOLVED', move })
-    }, delay)
+    }, COMPUTER_THINKING_DELAY_MS)
 
     return () => {
       if (timeoutRef.current) {

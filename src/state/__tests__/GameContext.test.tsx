@@ -50,7 +50,7 @@ describe('GameContext', () => {
     expect(screen.getByTestId('thinking').textContent).toBe('true')
 
     await act(async () => {
-      vi.advanceTimersByTime(800)
+      vi.advanceTimersByTime(5000)
     })
 
     expect(screen.getByTestId('player').textContent).toBe('user')

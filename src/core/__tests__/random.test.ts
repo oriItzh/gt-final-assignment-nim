@@ -3,6 +3,7 @@ import {
   CLASSIC_PILE_SIZES,
   generateRandomPiles,
   pilesFromSizes,
+  randomPileSizes,
 } from '../random'
 
 describe('random', () => {
@@ -14,6 +15,15 @@ describe('random', () => {
 
   it('exposes classic pile sizes', () => {
     expect(CLASSIC_PILE_SIZES).toEqual([3, 5, 7])
+  })
+
+  it('generates random pile sizes between 1 and 100', () => {
+    const sizes = randomPileSizes(5, 1, 100)
+    expect(sizes).toHaveLength(5)
+    for (const size of sizes) {
+      expect(size).toBeGreaterThanOrEqual(1)
+      expect(size).toBeLessThanOrEqual(100)
+    }
   })
 
   it('generates random piles within bounds', () => {

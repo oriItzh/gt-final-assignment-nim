@@ -7,7 +7,6 @@ import {
   DialogTitle,
   Typography,
 } from '@mui/material'
-import { CLASSIC_PILE_SIZES, pilesFromSizes } from '../../core/random'
 import { useGame } from '../../state/GameContext'
 
 export function GameStatusBanner() {
@@ -17,11 +16,7 @@ export function GameStatusBanner() {
   const userWon = state.status === 'user-won'
 
   const handlePlayAgain = () => {
-    startGame(
-      pilesFromSizes(CLASSIC_PILE_SIZES),
-      state.mode,
-      state.difficulty,
-    )
+    startGame(state.initialPiles, state.mode, state.difficulty)
   }
 
   if (!isGameOver) {

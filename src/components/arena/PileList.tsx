@@ -29,7 +29,7 @@ export function PileList() {
           Ready to play?
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Click &quot;New Game&quot; to begin with the classic 3-5-7 setup.
+          Click &quot;New Game&quot; to configure piles and start playing.
         </Typography>
       </Box>
     )
@@ -42,6 +42,7 @@ export function PileList() {
         flexWrap: 'wrap',
         gap: 2,
         justifyContent: 'center',
+        alignItems: 'stretch',
       }}
     >
       {state.piles.map((pile, index) => (

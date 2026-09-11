@@ -21,3 +21,14 @@ export function pilesFromSizes(sizes: number[]): Pile[] {
 }
 
 export const CLASSIC_PILE_SIZES = [3, 5, 7]
+
+export function randomPileSizes(
+  count: number,
+  min = 1,
+  max = 100,
+): number[] {
+  return Array.from(
+    { length: count },
+    () => min + Math.floor(Math.random() * (max - min + 1)),
+  )
+}

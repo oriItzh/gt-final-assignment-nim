@@ -2,6 +2,7 @@ import { Card, CardContent, Grid, Stack, Typography } from '@mui/material'
 import { ControlsBar } from '../arena/ControlsBar'
 import { GameStatusBanner } from '../arena/GameStatusBanner'
 import { MoveSnackbar } from '../arena/MoveSnackbar'
+import { ThinkingSnackbar } from '../arena/ThinkingSnackbar'
 import { PileList } from '../arena/PileList'
 import { TurnIndicator } from '../arena/TurnIndicator'
 import { BinaryMatrixHUD } from '../lab/BinaryMatrixHUD'
@@ -39,6 +40,7 @@ export function GameContainer() {
 
         <GameStatusBanner />
       </Stack>
+      <ThinkingSnackbar />
       <MoveSnackbar />
     </>
   )
