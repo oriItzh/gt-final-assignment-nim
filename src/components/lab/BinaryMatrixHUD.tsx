@@ -1,4 +1,5 @@
 import {
+  alpha,
   Box,
   Card,
   CardContent,
@@ -56,10 +57,12 @@ export function BinaryMatrixHUD() {
                 return (
                   <TableRow
                     key={row.pileId}
-                    sx={{
-                      bgcolor: isRowHighlighted ? 'warning.light' : 'transparent',
+                    sx={(theme) => ({
+                      bgcolor: isRowHighlighted
+                        ? alpha(theme.palette.warning.main, theme.palette.mode === 'dark' ? 0.15 : 0.12)
+                        : 'transparent',
                       transition: 'background 0.2s ease',
-                    }}
+                    })}
                   >
                     <TableCell sx={{ fontWeight: 600 }}>#{pileNum}</TableCell>
                     <TableCell align="center">{row.size}</TableCell>
@@ -71,9 +74,11 @@ export function BinaryMatrixHUD() {
                         <TableCell
                           key={`${row.pileId}-${colIndex}`}
                           align="center"
-                          sx={{
-                            bgcolor: isBitHighlighted ? 'warning.light' : 'transparent',
-                          }}
+                          sx={(theme) => ({
+                            bgcolor: isBitHighlighted
+                              ? alpha(theme.palette.warning.main, theme.palette.mode === 'dark' ? 0.2 : 0.15)
+                              : 'transparent',
+                          })}
                         >
                           <Chip
                             label={bit}
@@ -88,7 +93,7 @@ export function BinaryMatrixHUD() {
                   </TableRow>
                 )
               })}
-              <TableRow sx={{ bgcolor: 'rgba(79, 55, 139, 0.06)' }}>
+              <TableRow sx={{ bgcolor: 'action.hover' }}>
                 <TableCell sx={{ fontWeight: 700 }}>XOR</TableCell>
                 <TableCell align="center" sx={{ fontWeight: 700 }}>
                   {derived.xorSum}

@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import { Box, keyframes } from '@mui/material'
+import { Box, keyframes, useTheme } from '@mui/material'
+import { getStickColors } from '../../theme/theme'
+
+const STICKS_PER_COLUMN = 12
+const STICK_WIDTH = 36
+const STICK_HEIGHT = 4
 
 const stickRemove = keyframes`
-  0% { opacity: 1; transform: translateX(0) scaleX(1); }
-  100% { opacity: 0; transform: translateX(28px) scaleX(0.3); }
+  0% { opacity: 1; transform: translateY(0) scaleY(1); }
+  100% { opacity: 0; transform: translateY(-10px) scaleY(0.4); }
 `
 
 interface PileSticksProps {
@@ -12,7 +17,18 @@ interface PileSticksProps {
   selectedRemove?: number
 }
 
+function groupIntoColumns(total: number): number[][] {
+  const columns: number[][] = []
+  for (let i = 0; i < total; i++) {
+    const col = Math.floor(i / STICKS_PER_COLUMN)
+    if (!columns[col]) columns[col] = []
+    columns[col].push(i)
+  }
+  return columns
+}
+
 export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksProps) {
+  const theme = useTheme()
   const prevCountRef = useRef(count)
   const [exitingCount, setExitingCount] = useState(0)
 
@@ -29,53 +45,74 @@ export function PileSticks({ count, pileIndex, selectedRemove = 0 }: PileSticksP
 
   const totalVisible = count + exitingCount
   const markedForRemoval = selectedRemove > 0 ? Math.min(selectedRemove, count) : 0
+  const columns = groupIntoColumns(totalVisible)
+
+  const isStickMarked = (index: number) =>
+    index < count && index >= count - markedForRemoval
+
+  const isStickExiting = (index: number) => index >= count
 
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
         flexWrap: 'wrap',
-        gap: 0.5,
+        gap: 0.75,
         width: '100%',
         minHeight: 48,
         px: 1.5,
         py: 1.5,
         borderRadius: 3,
-        bgcolor: 'rgba(79, 55, 139, 0.04)',
-        border: '1px dashed rgba(79, 55, 139, 0.15)',
+        bgcolor: (t) =>
+          t.palette.mode === 'dark'
+            ? 'rgba(155, 140, 255, 0.06)'
+            : 'rgba(79, 70, 229, 0.05)',
+        border: 1,
+        borderColor: 'divider',
+        borderStyle: 'dashed',
       }}
       aria-label={`Pile ${pileIndex + 1} with ${count} sticks`}
     >
-      {Array.from({ length: totalVisible }, (_, i) => {
-        const isExiting = i >= count
-        const isMarked = !isExiting && i >= count - markedForRemoval
-
-        return (
-          <Box
-            key={`${pileIndex}-stick-${i}-${isExiting ? 'exit' : 'stay'}`}
-            sx={{
-              width: 32,
-              height: 12,
-              borderRadius: 6,
-              flexShrink: 0,
-              background: isMarked
-                ? 'linear-gradient(90deg, #FFB74D 0%, #F57C00 100%)'
-                : 'linear-gradient(90deg, #B39DDB 0%, #4F378B 100%)',
-              boxShadow: isMarked
-                ? '0 2px 8px rgba(245, 124, 0, 0.4)'
-                : '0 2px 6px rgba(79, 55, 139, 0.25)',
-              transformOrigin: 'center right',
-              animation: isExiting ? `${stickRemove} 0.45s ease-in forwards` : 'none',
-              transition: 'background 0.2s ease, box-shadow 0.2s ease',
-            }}
-          />
-        )
-      })}
-      {totalVisible === 0 && (
+      {totalVisible === 0 ? (
         <Box sx={{ color: 'text.disabled', fontSize: 12 }}>Empty</Box>
+      ) : (
+        columns.map((stickIndices, colIndex) => (
+          <Box
+            key={`${pileIndex}-col-${colIndex}`}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column-reverse',
+              alignItems: 'center',
+              gap: '2px',
+            }}
+          >
+            {stickIndices.map((stickIndex) => {
+              const isMarked = isStickMarked(stickIndex)
+              const isExiting = isStickExiting(stickIndex)
+              const stickStyle = getStickColors(theme, isMarked)
+
+              return (
+                <Box
+                  key={`${pileIndex}-stick-${stickIndex}-${isExiting ? 'exit' : 'stay'}`}
+                  sx={{
+                    width: STICK_WIDTH,
+                    height: STICK_HEIGHT,
+                    borderRadius: 2,
+                    flexShrink: 0,
+                    background: stickStyle.background,
+                    boxShadow: stickStyle.boxShadow,
+                    transformOrigin: 'center bottom',
+                    animation: isExiting ? `${stickRemove} 0.45s ease-in forwards` : 'none',
+                    transition: 'background 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                />
+              )
+            })}
+          </Box>
+        ))
       )}
     </Box>
   )

@@ -12,7 +12,17 @@ export function TurnIndicator() {
   }
 
   return (
-    <Card variant="outlined" sx={{ bgcolor: 'primary.light', border: 'none' }}>
+    <Card
+      variant="outlined"
+      sx={{
+        bgcolor: (theme) =>
+          theme.palette.mode === 'dark'
+            ? 'rgba(155, 140, 255, 0.1)'
+            : 'primary.light',
+        border: 1,
+        borderColor: 'divider',
+      }}
+    >
       <CardContent sx={{ py: '12px !important' }}>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}

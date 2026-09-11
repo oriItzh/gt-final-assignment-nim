@@ -21,8 +21,10 @@ export function PileList() {
           py: 6,
           textAlign: 'center',
           borderRadius: 3,
-          bgcolor: 'rgba(79, 55, 139, 0.04)',
-          border: '1px dashed rgba(79, 55, 139, 0.2)',
+          bgcolor: 'action.hover',
+          border: 1,
+          borderColor: 'divider',
+          borderStyle: 'dashed',
         }}
       >
         <Typography variant="h6" color="text.secondary" gutterBottom>

@@ -1,13 +1,12 @@
-import { CssBaseline, ThemeProvider, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { AppShell } from './components/layout/AppShell'
 import { GameContainer } from './components/layout/GameContainer'
 import { GameProvider } from './state/GameContext'
-import { theme } from './theme/theme'
+import { ThemeModeProvider } from './theme/ThemeModeContext'
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <ThemeModeProvider>
       <GameProvider>
         <AppShell>
           <Typography variant="h4" gutterBottom>
@@ -19,7 +18,7 @@ function App() {
           <GameContainer />
         </AppShell>
       </GameProvider>
-    </ThemeProvider>
+    </ThemeModeProvider>
   )
 }
 

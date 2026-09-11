@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {
+  alpha,
   Box,
   Button,
   Card,
@@ -53,7 +54,10 @@ export function PileItem({ pile, index, disabled, highlighted = false, onRemove 
         minHeight: 360,
         border: highlighted ? 2 : 1,
         borderColor: highlighted ? 'warning.main' : 'divider',
-        bgcolor: highlighted ? 'warning.light' : 'background.paper',
+        bgcolor: (theme) =>
+          highlighted
+            ? alpha(theme.palette.warning.main, theme.palette.mode === 'dark' ? 0.18 : 0.12)
+            : theme.palette.background.paper,
         transition: 'all 0.25s ease',
         opacity: pile.size === 0 ? 0.55 : 1,
       }}
