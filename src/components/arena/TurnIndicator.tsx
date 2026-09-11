@@ -1,30 +1,40 @@
-import { Chip, Stack } from '@mui/material'
+import { Card, CardContent, Chip, Stack, Typography } from '@mui/material'
 import PersonIcon from '@mui/icons-material/Person'
 import SmartToyIcon from '@mui/icons-material/SmartToy'
 import { ThinkingLoader } from '../common/ThinkingLoader'
 import { useGame } from '../../state/GameContext'
 
 export function TurnIndicator() {
-  const { state } = useGame()
+  const { state, derived } = useGame()
 
   if (state.status !== 'playing') {
     return null
   }
 
-  if (state.isComputerThinking) {
-    return <ThinkingLoader />
-  }
-
-  const isUserTurn = state.currentPlayer === 'user'
-
   return (
-    <Stack direction="row" spacing={1}>
-      <Chip
-        icon={isUserTurn ? <PersonIcon /> : <SmartToyIcon />}
-        label={isUserTurn ? 'Your Turn' : "Computer's Turn"}
-        color={isUserTurn ? 'primary' : 'default'}
-        variant={isUserTurn ? 'filled' : 'outlined'}
-      />
-    </Stack>
+    <Card variant="outlined" sx={{ bgcolor: 'primary.light', border: 'none' }}>
+      <CardContent sx={{ py: '12px !important' }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={1}
+          sx={{ alignItems: { sm: 'center' }, justifyContent: 'space-between' }}
+        >
+          {state.isComputerThinking ? (
+            <ThinkingLoader />
+          ) : (
+            <Chip
+              icon={state.currentPlayer === 'user' ? <PersonIcon /> : <SmartToyIcon />}
+              label={state.currentPlayer === 'user' ? 'Your Turn' : "Computer's Turn"}
+              color={state.currentPlayer === 'user' ? 'primary' : 'default'}
+              variant="filled"
+              sx={{ fontWeight: 600 }}
+            />
+          )}
+          <Typography variant="body2" color="text.secondary">
+            XOR = {derived.xorSum} · Position: {derived.hint.position}-position
+          </Typography>
+        </Stack>
+      </CardContent>
+    </Card>
   )
 }

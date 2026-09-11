@@ -1,5 +1,7 @@
 import {
   Button,
+  Card,
+  CardContent,
   FormControl,
   InputLabel,
   MenuItem,
@@ -41,51 +43,55 @@ export function ControlsBar() {
   }
 
   return (
-    <Stack
-      direction={{ xs: 'column', sm: 'row' }}
-      spacing={2}
-      sx={{ flexWrap: 'wrap', alignItems: { sm: 'center' } }}
-    >
-      <Button
-        variant="contained"
-        startIcon={<PlayArrowIcon />}
-        onClick={handleNewGame}
-      >
-        New Game
-      </Button>
-      <Button
-        variant="outlined"
-        startIcon={<RefreshIcon />}
-        onClick={handleReset}
-        disabled={state.status !== 'playing'}
-      >
-        Reset
-      </Button>
-
-      <FormControl size="small" sx={{ minWidth: 160 }}>
-        <InputLabel id="difficulty-label">Difficulty</InputLabel>
-        <Select
-          labelId="difficulty-label"
-          label="Difficulty"
-          value={state.difficulty}
-          onChange={handleDifficultyChange}
+    <Card>
+      <CardContent>
+        <Stack
+          direction={{ xs: 'column', md: 'row' }}
+          spacing={2}
+          sx={{ flexWrap: 'wrap', alignItems: { md: 'center' }, justifyContent: 'space-between' }}
         >
-          <MenuItem value="grandmaster">Grandmaster</MenuItem>
-          <MenuItem value="adaptive">Adaptive</MenuItem>
-          <MenuItem value="novice">Novice</MenuItem>
-        </Select>
-      </FormControl>
+          <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
+            <Button variant="contained" startIcon={<PlayArrowIcon />} onClick={handleNewGame}>
+              New Game
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<RefreshIcon />}
+              onClick={handleReset}
+              disabled={state.status !== 'playing'}
+            >
+              Reset
+            </Button>
+          </Stack>
 
-      <ToggleButtonGroup
-        exclusive
-        size="small"
-        value={state.mode}
-        onChange={handleModeChange}
-        aria-label="play rules"
-      >
-        <ToggleButton value="normal">Normal</ToggleButton>
-        <ToggleButton value="misere">Misère</ToggleButton>
-      </ToggleButtonGroup>
-    </Stack>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ alignItems: { sm: 'center' } }}>
+            <FormControl size="small" sx={{ minWidth: 160 }}>
+              <InputLabel id="difficulty-label">Difficulty</InputLabel>
+              <Select
+                labelId="difficulty-label"
+                label="Difficulty"
+                value={state.difficulty}
+                onChange={handleDifficultyChange}
+              >
+                <MenuItem value="grandmaster">Grandmaster</MenuItem>
+                <MenuItem value="adaptive">Adaptive</MenuItem>
+                <MenuItem value="novice">Novice</MenuItem>
+              </Select>
+            </FormControl>
+
+            <ToggleButtonGroup
+              exclusive
+              size="small"
+              value={state.mode}
+              onChange={handleModeChange}
+              aria-label="play rules"
+            >
+              <ToggleButton value="normal">Normal</ToggleButton>
+              <ToggleButton value="misere">Misère</ToggleButton>
+            </ToggleButtonGroup>
+          </Stack>
+        </Stack>
+      </CardContent>
+    </Card>
   )
 }

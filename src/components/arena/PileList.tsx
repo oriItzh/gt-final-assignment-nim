@@ -1,13 +1,9 @@
-import { Stack, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useGame } from '../../state/GameContext'
 import { PileItem } from './PileItem'
 
-interface PileListProps {
-  highlightedPileId?: string | null
-}
-
-export function PileList({ highlightedPileId = null }: PileListProps) {
-  const { state, dispatch } = useGame()
+export function PileList() {
+  const { state, dispatch, highlight } = useGame()
 
   const isInteractive =
     state.status === 'playing' &&
@@ -20,17 +16,33 @@ export function PileList({ highlightedPileId = null }: PileListProps) {
 
   if (state.status === 'setup') {
     return (
-      <Typography color="text.secondary" sx={{ py: 4, textAlign: 'center' }}>
-        Click &quot;New Game&quot; to start playing.
-      </Typography>
+      <Box
+        sx={{
+          py: 6,
+          textAlign: 'center',
+          borderRadius: 3,
+          bgcolor: 'rgba(79, 55, 139, 0.04)',
+          border: '1px dashed rgba(79, 55, 139, 0.2)',
+        }}
+      >
+        <Typography variant="h6" color="text.secondary" gutterBottom>
+          Ready to play?
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Click &quot;New Game&quot; to begin with the classic 3-5-7 setup.
+        </Typography>
+      </Box>
     )
   }
 
   return (
-    <Stack
-      direction={{ xs: 'column', md: 'row' }}
-      spacing={2}
-      sx={{ flexWrap: 'wrap' }}
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 2,
+        justifyContent: 'center',
+      }}
     >
       {state.piles.map((pile, index) => (
         <PileItem
@@ -38,10 +50,10 @@ export function PileList({ highlightedPileId = null }: PileListProps) {
           pile={pile}
           index={index}
           disabled={!isInteractive}
-          highlighted={highlightedPileId === pile.id}
+          highlighted={highlight.pileId === pile.id}
           onRemove={handleRemove}
         />
       ))}
-    </Stack>
+    </Box>
   )
 }

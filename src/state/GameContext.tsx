@@ -6,6 +6,7 @@ import {
   useMemo,
   useReducer,
   useRef,
+  useState,
   type ReactNode,
 } from 'react'
 import { toBinaryMatrix } from '../core/binary'
@@ -29,10 +30,18 @@ export interface GameDerivedState {
   hint: HelperHint
 }
 
+export interface HighlightState {
+  pileId: string | null
+  bitIndex: number | null
+}
+
 interface GameContextValue {
   state: GameStateWithSnapshot
   dispatch: React.Dispatch<GameAction>
   derived: GameDerivedState
+  highlight: HighlightState
+  setHighlight: (pileId: string | null, bitIndex: number | null) => void
+  clearHighlight: () => void
   startGame: (piles: Pile[], mode: GameMode, difficulty: Difficulty) => void
 }
 
@@ -48,6 +57,18 @@ function randomThinkingDelay(): number {
 export function GameProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(gameReducer, undefined, createInitialState)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [highlight, setHighlightState] = useState<HighlightState>({
+    pileId: null,
+    bitIndex: null,
+  })
+
+  const setHighlight = useCallback((pileId: string | null, bitIndex: number | null) => {
+    setHighlightState({ pileId, bitIndex })
+  }, [])
+
+  const clearHighlight = useCallback(() => {
+    setHighlightState({ pileId: null, bitIndex: null })
+  }, [])
 
   const derived = useMemo<GameDerivedState>(
     () => ({
@@ -97,8 +118,16 @@ export function GameProvider({ children }: { children: ReactNode }) {
   ])
 
   const value = useMemo(
-    () => ({ state, dispatch, derived, startGame }),
-    [state, derived, startGame],
+    () => ({
+      state,
+      dispatch,
+      derived,
+      highlight,
+      setHighlight,
+      clearHighlight,
+      startGame,
+    }),
+    [state, derived, highlight, setHighlight, clearHighlight, startGame],
   )
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>
