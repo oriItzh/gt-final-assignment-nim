@@ -1,32 +1,63 @@
-# React + TypeScript + Vite
+# Generalized Nim — Game Theory Lab
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An interactive web application for playing **Generalized Nim** against a computer opponent, built as an academic game theory project. The app combines a playable game arena with a live **binary matrix** and **XOR strategy helper**, making it easy to explore winning and losing positions in real time.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Player vs. Computer** — take turns removing sticks from a single pile; supports Normal play (last move wins) and Misère play (last move loses)
+- **Configurable games** — set up 2–7 piles with custom sizes (1–100) or randomize all piles at once
+- **Three difficulty levels**
+  - **Grandmaizer** — always plays the mathematically optimal move
+  - **Adaptive** — plays optimally ~70% of the time, random otherwise
+  - **Dardaleh** — plays uniformly random legal moves
+- **Game Theory Lab panel**
+  - Live binary matrix with XOR parity row
+  - N/P position evaluation and step-by-step hint explanations
+  - Cross-highlighting between hints, piles, and bit columns
+- **Visual feedback** — horizontal stick piles with removal animations, move snackbars, and a "Thinking…" indicator during the computer's 5-second turn delay
+- **Dark mode** — toggle between light and dark themes (preference saved in browser)
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + TypeScript (Vite)
+- Material UI (MUI)
+- Vitest for unit tests (Nim solver, computer logic, game state)
 
-## Expanding the Oxlint configuration
+## Setup
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+**Prerequisites:** Node.js 18+ and npm
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+git clone <repository-url>
+cd final-assignment-code
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Running
+
+**Development server** (with hot reload):
+
+```bash
+npm run dev
+```
+
+Open the URL shown in the terminal (typically `http://localhost:5173`).
+
+**Production build:**
+
+```bash
+npm run build
+npm run preview
+```
+
+**Run tests:**
+
+```bash
+npm run test
+```
+
+**Lint:**
+
+```bash
+npm run lint
+```
