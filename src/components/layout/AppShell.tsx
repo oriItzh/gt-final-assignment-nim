@@ -32,10 +32,10 @@ export function AppShell({ children }: AppShellProps) {
         <Toolbar>
           <CasinoIcon sx={{ mr: 1.5, color: 'primary.main' }} />
           <Typography variant="h6" component="h1" sx={{ flexGrow: 1, fontWeight: 700 }}>
-            Generalized Nim
+            Nim
           </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ mr: 1, display: { xs: 'none', sm: 'block' } }}>
-            Game Theory Lab
+            Game Theory - RUNI 2026
           </Typography>
           <ThemeModeToggle />
         </Toolbar>
@@ -43,6 +43,19 @@ export function AppShell({ children }: AppShellProps) {
       <Container maxWidth="xl" sx={{ py: 4 }}>
         {children}
       </Container>
+      <Box
+        component="footer"
+        sx={{
+          py: 2,
+          textAlign: 'center',
+          borderTop: 1,
+          borderColor: 'divider',
+        }}
+      >
+        <Typography variant="caption" color="text.secondary">
+          Created by Ori Itzhaki &amp; Hagar Aloni
+        </Typography>
+      </Box>
     </Box>
   )
 }
