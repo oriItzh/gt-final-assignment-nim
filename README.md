@@ -1,49 +1,44 @@
 # Generalized Nim
 
-An interactive Generalized Nim game for a university game theory course. Play against a computer opponent while exploring XOR-based winning strategy through a live binary analysis panel.
+Final project for the Game theory course. It's a playable version of Nim which was introduced at the beginning of the course, where you go up against a computer opponent, with a binary/XOR panel on the side so you can actually see the winning strategy while you play instead of just taking it on faith.
 
-## Features
+Live version: https://oriitzh.github.io/gt-final-assignment-nim/
 
-- Play Generalized Nim in **Normal** mode (last move wins) or **Misère** mode (last move loses)
-- Configure 2–7 piles with custom sizes (1–100) or randomize all piles before starting
-- Three computer difficulty levels: **Grandmaizer** (optimal), **Adaptive** (mostly optimal), and **Dardaleh** (random)
-- Live **Binary Matrix** showing each pile in binary with XOR parity highlighting
-- **XOR Helper** with N/P position evaluation, recommended moves, and step-by-step explanations
-- Visual stick piles with removal animations and move notifications
-- Light and dark mode
+## What it does
 
-## Tech Stack
+You pick how many piles (2 to 7) and how big each one is (1 to 100), or just hit randomize if you don't feel like typing numbers. There's a normal mode (last player to move wins) and misère mode (last player to move loses), which flips the whole strategy on its head.
 
-React, TypeScript, Material UI, Vite
+For the computer opponent you get three options: Grandmaizer plays optimally every time, Adaptive mostly plays well but slips up occasionally, and Dardaleh just moves randomly if you want an easy game.
 
-## Setup
+The fun part is the binary matrix — it shows every pile's size in binary and highlights the XOR parity of each column, so you can watch the nim-sum update as piles change. There's also an XOR helper that tells you whether you're in a winning (N) or losing (P) position and suggests a move, with an explanation of why.
 
-Requires Node.js 18+.
+Piles are drawn as sticks that animate when removed, and there's a light/dark toggle because staring at a game theory demo at 2am shouldn't hurt your eyes.
+
+## Built with
+
+React, TypeScript, Material UI, and Vite.
+
+## Getting it running locally
+
+You'll need Node 18 or newer.
 
 ```bash
 git clone https://github.com/oriItzh/gt-final-assignment-nim.git
 cd gt-final-assignment-nim
 npm install
-```
-
-## Running
-
-Start the development server:
-
-```bash
 npm run dev
 ```
 
-Open `http://localhost:5173` in your browser.
+Then open `http://localhost:5173`.
 
-Build for production:
+To build for production and preview that build:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Run tests:
+To run the test suite:
 
 ```bash
 npm run test

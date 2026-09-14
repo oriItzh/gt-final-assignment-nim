@@ -10,7 +10,7 @@ function App() {
       <GameProvider>
         <AppShell>
           <Typography variant="h4" gutterBottom>
-            Generalized Nim
+            Nim
           </Typography>
           <Typography color="text.secondary" sx={{ mb: 1 }}>
             Interactive Player vs. Computer — explore XOR strategy in real time.
